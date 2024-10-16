@@ -46,9 +46,34 @@ function lancerJeu(){
         let nom = document.getElementById("nom").value;
         let email = document.getElementById("email").value;
 
-        console.log(nom, email);
+        if(!validerNom(nom)){
+            console.log("Le nom n'est pas valide");
+        }else if(!validerMail(email)){
+            console.log("L'email n'est pas valide");
+        } else {
+            afficherEmail(nom, email, score);
+        }
+    })
 
-        afficherEmail(nom, email, score);
+    let inputNom = document.getElementById("nom");
+    let inputMail = document.getElementById("email");
+
+    inputNom.addEventListener("input", (event) => {
+        let champErreurNom = document.querySelector("#erreurNom");
+        if(validerNom(event.target.value)){
+            champErreurNom.textContent = "";
+        } else {
+            champErreurNom.textContent = "Le nom n'est pas valide";
+        }
+    })
+
+    inputMail.addEventListener("input", (event) => {
+        let champErreurMail = document.querySelector("#erreurMail");
+        if(validerMail(event.target.value)){
+            champErreurMail.textContent = "";
+        } else {
+            champErreurMail.textContent = "L'email n'est pas valide";
+        }
     })
 }
 
@@ -76,4 +101,14 @@ function afficherResultat(score, nbMots){
 function afficherEmail(nom, email, score) {
     let mailto = `mailto:${email}?subject=Partage du score Azertype&body=Salut, je suis ${nom} et je viens de réaliser le score ${score} sur le site d'Azertype !`
     location.href = mailto
+}
+
+function validerNom(nom){
+    let regex = new RegExp("^[a-zA-Z]+$");
+    return regex.test(nom);
+}
+
+function validerMail(mail){
+    let regex = new RegExp("^[a-z0-9._-]+@[a-z0-9.-]+\\.[a-z]+$");
+    return regex.test(mail);
 }

@@ -246,6 +246,10 @@ footer {
     margin: 5px;
 }
 
+#erreurNom, #erreurEmail {
+    color: red;
+}
+
 /**
  * Responsive
  */
